@@ -1,0 +1,42 @@
+body{
+    margin: 20px 0 0;
+    font: 20px/24px 'Poiret One', cursive;
+}
+.wrapper{
+    padding: 20px;
+    width: 900px;
+    border-radius: 8px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(143, 188, 143, 0.43);
+}
+.input_box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.enter_field{
+    width: 70%;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 8px 5px 5px rgba(85, 107, 47, 0.53);
+}
+.btn{
+    background: rgba(85, 107, 47, 0.53);
+    color: white;
+    font: 16px/24px 'Poiret One', cursive;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 8px;
+}
+.list{
+    padding: 0;
+    margin: 0;
+    list-style: square;
+}

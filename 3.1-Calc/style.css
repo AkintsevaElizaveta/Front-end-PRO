@@ -1,0 +1,48 @@
+.btn_container{
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.btn{
+    background: paleturquoise;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+.no_name{
+    margin-bottom: 30px;
+}
+.calc_container{
+    width: 500px;
+    margin: 0 auto 0 20px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+
+}
+.input_box{
+    grid-area: 1/1/3/3;
+    display: flex;
+    justify-content: space-around;
+}
+.input_field{
+    background: lightgoldenrodyellow;
+    padding: 10px 5px;
+    border: 2px solid saddlebrown;
+    border-radius: 8px;
+    text-align: center;
+}
+.btn_action{
+    width: 40%;
+    padding: 10px;
+    justify-self: center;
+    background: whitesmoke;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+.input_field_error{
+    border: 2px solid red;
+}

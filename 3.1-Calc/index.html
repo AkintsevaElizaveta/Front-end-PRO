@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calc</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="main2.js"></script>
+</head>
+<body>
+    <h1 class="title" id="choseName" >Select your name</h1>
+    <div class="btn_container" id="btnCont">
+        <button class="btn btn-1" onclick="helloVova()">Vova</button>
+        <button class="btn btn-2" onclick="helloValera()">Valera</button>
+        <button class="btn btn-3" onclick="helloMisha()">Misha</button>
+        <button class="btn btn-4" onclick="helloOleg()">Oleg</button>
+        <button class="btn btn-5" onclick="helloOleksii()">Oleksii</button>
+        <button class="btn btn-6" onclick="helloBobbi()">Bobbi</button>
+    </div>
+    <button class="no_name" onclick="createName()">There is not my name</button>
+
+
+
+    <div class="calc_container">
+       <div class="input_box">
+           <input class="input_field" id="userNumber1" placeholder="enter first operand">
+           <input class="input_field" id="userNumber2" placeholder="enter second operand">
+       </div>
+        <button class="btn_action" onclick="addAction()">+</button>
+        <button class="btn_action" onclick="subAction()">-</button>
+        <button class="btn_action" onclick="multAction()">*</button>
+        <button class="btn_action" onclick="divAction()">/</button>
+    </div>
+</body>
+</html>

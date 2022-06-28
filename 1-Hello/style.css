@@ -1,0 +1,11 @@
+body{
+    background: lightgoldenrodyellow;
+    padding-top: 50px;
+
+}
+h1{
+    font: 24px/28px 'Trebuchet MS', sans-serif;
+    color: darkgreen;
+    font-weight: 700;
+    text-align: center;
+}
