@@ -2,38 +2,20 @@
 
 let contactList = document.querySelector('#contactsList')
 const addBtn = document.querySelector('#addBtn')
-addBtn.addEventListener('click', addListTemplate)
+
+addBtn.addEventListener('click', onAddBtnClick)
 contactList.addEventListener('click', onContactListClick)
 
-
-function addListTemplate(){
+function onAddBtnClick(){
     let userName = document.querySelector('#userName').value;
     let userLastName = document.querySelector('#userLastName').value;
     let userTel = document.querySelector('#userTel').value;
 
-    if(!validateEmpty(userName) || !validateEmpty(userLastName) || !validateEmpty(userTel)){
-        alert('Поле не може бути порожнім')
+    if (!validateAllFields(userName, userLastName, userTel)){
         return;
     }
 
-    if(!validateOnlyLetters(userName) || !validateOnlyLetters(userLastName)){
-        alert("Ім'я та прізвіще можуть містити тількі літери");
-        return;
-    }
-
-    if (!validatePhoneNumber(userTel)){
-        alert('Введіть коректний номер телефону')
-        return;
-    }
-
-
-    let listTemplates = document.querySelector('#listTemplates').innerHTML;
-
-    const listTemplateHTML = listTemplates
-        .replace('{userName}', userName)
-        .replace('{userLastName}', userLastName)
-        .replace('{userTel}', userTel);
-    contactList.insertAdjacentHTML('beforeend', listTemplateHTML)
+    addItemTemplate(userName, userLastName, userTel)
     clearAllFields()
 }
 
@@ -58,6 +40,34 @@ function validateOnlyLetters(enter) {
     let letters = /^[A-Za-z]+$/;
     return enter.match(letters);
 
+}
+
+function validateAllFields(firstName, lastName, phoneNumber){
+    if(!validateEmpty(firstName) || !validateEmpty(lastName) || !validateEmpty(phoneNumber)){
+        alert('Поле не може бути порожнім')
+        return false;
+    }
+
+    if(!validateOnlyLetters(firstName) || !validateOnlyLetters(lastName)){
+        alert("Ім'я та прізвіще можуть містити тількі літери");
+        return false;
+    }
+
+    if (!validatePhoneNumber(phoneNumber)){
+        alert('Введіть коректний номер телефону')
+        return false;
+    }
+    return true;
+}
+
+function addItemTemplate(firstName, lastName, phoneNumber){
+    let listTemplates = document.querySelector('#listTemplates').innerHTML;
+
+    const listTemplateHTML = listTemplates
+        .replace('{userName}', firstName)
+        .replace('{userLastName}', lastName)
+        .replace('{userTel}', phoneNumber);
+    contactList.insertAdjacentHTML('beforeend', listTemplateHTML)
 }
 
 function clearField(field, defaultValue = ''){
