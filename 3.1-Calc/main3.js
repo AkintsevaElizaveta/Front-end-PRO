@@ -99,7 +99,7 @@ function multAction(){
 function divAction(){
     let operandFirst = document.getElementById('userNumber1');
     let operandSecond = document.getElementById('userNumber2');
-    if (validateinput(operandFirst) && validateinput(operandSecond)){
+    if (validateInput(operandFirst) && validateInput(operandSecond)){
         alert(`${operandFirst.value} / ${operandSecond.value} = ${Number(operandFirst) / Number(operandSecond)}`)
     }else alert("enter number")
 }
@@ -107,7 +107,7 @@ function divAction(){
 function validateUserNumber(enteredNum){
     return !isNaN(enteredNum);
 }
-function validateinput(input){
+function validateInput(input){
     if (validateUserNumber(input.value)){
         input.className = 'input_field'
         return true

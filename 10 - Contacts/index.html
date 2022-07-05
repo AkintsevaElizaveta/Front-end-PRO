@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="main.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <form class="contacts_form">
+            <input class="input_field" id="userName" type="text" placeholder="Ім'я">
+            <input class="input_field" id="userLastName" type="text" placeholder="Прізвище">
+            <input class="input_field" id="userTel" type="text" value="+380">
+            <button class="contacts_form_btn" id="addBtn" type="button">Додати контакт</button>
+        </form>
+        <table class="contacts_list" id="contactsList">
+            <tr>
+                <th>Ім'я</th>
+                <th>Прізвище</th>
+                <th>Номер телефону</th>
+                <th>Видалення</th>
+            </tr>
+            <span class="comment">*Ім'я та прізвище можуть містити тільки літери.
+                    Телефонний номер необхідно ввести в форматі +380********* </span>
+        </table>
+    </div>
+<script type="text/templates" id="listTemplates">
+    <tr class="contact_item">
+        <td>{userName}</td>
+        <td>{userLastName}</td>
+        <td>{userTel}</td>
+        <td><button class="contacts_form_btn delete_btn">Видалити</button></td>
+    </tr>
+
+</script>
+</body>
+</html>

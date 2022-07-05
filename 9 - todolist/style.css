@@ -11,6 +11,7 @@ body{
     flex-direction: column;
     align-items: center;
     background: rgba(143, 188, 143, 0.43);
+    position: relative;
 }
 .input_box{
     width: 100%;
@@ -39,4 +40,19 @@ body{
     padding: 0;
     margin: 0;
     list-style: square;
+}
+.pop_up{
+    width: 400px;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: rgba(243, 238, 240, 1);
+    border: 2px solid red;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 40px;
+    right: 200px;
 }

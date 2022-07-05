@@ -1,0 +1,69 @@
+body{
+    font: 20px/24px 'Montserrat', sans-serif;
+}
+.wrapper{
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contacts_form{
+    width: 100%;
+    background: rgb(193, 212, 232);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+}
+.input_field{
+    width: 25%;
+    border: none;
+    padding: 5px;
+}
+.contacts_form_btn{
+    background: rgb(9, 120, 237);
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    font: 18px/22px 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: 500ms;
+}
+.contacts_form_btn:hover{
+    box-shadow: 5px 5px 5px rgba(21, 63, 107, 0.5);
+    background: rgb(19, 94, 21);
+}
+.comment{
+    font-size: 14px;
+    color: dimgray;
+    font-style: italic;
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
+.contacts_list{
+    width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.contacts_list tr{
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid black;
+
+}
+.contacts_list th{
+    font-weight: bold;
+}
+.contacts_list td, th{
+    width: 25%;
+    text-align: center;
+}
+.delete_btn{
+    display: inline-block;
+}
+.delete_btn:hover{
+    background: red;
+}
