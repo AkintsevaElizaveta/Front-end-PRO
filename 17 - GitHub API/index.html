@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="main.js"></script>
+</head>
+<body>
+    <form onsubmit="onFindUserBtnClick(); return false" class="get_login_form" id="getLoginForm">
+        <input type="text" class="get_login_form__input" id="loginForRequest" placeholder="Enter user's login">
+        <button type="button" class="get_login_form__btn" id="findUser">FIND</button>
+    </form>
+    <ul class="result_list" id="result">
+
+    </ul>
+</body>
+</html>
