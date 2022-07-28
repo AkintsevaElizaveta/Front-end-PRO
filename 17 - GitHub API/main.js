@@ -10,7 +10,7 @@ function onFindUserBtnClick(e) {
         .then(res => res.json())
         .then(renderUser)
         .catch((error) => {
-            console.log(error.message)
+            alert(`${error.message}. Please, enter login.`)
         })
     clearField(login);
 }
