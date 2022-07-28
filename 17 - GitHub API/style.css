@@ -78,7 +78,6 @@ body {
 .result_list li div span {
   display: flex;
   justify-content: space-between;
-  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
