@@ -1,6 +1,6 @@
 body{
     margin: 20px 0 0;
-    font: 20px/24px 'Poiret One', cursive;
+    font: 20px/24px 'Cormorant SC', serif;
 }
 .wrapper{
     padding: 20px;
@@ -17,19 +17,26 @@ body{
     width: 100%;
     padding: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
     margin-bottom: 20px;
 }
+.input_form strong{
+    margin-bottom: 10px;
+}
 .enter_field{
     width: 70%;
     padding: 8px;
+    margin-bottom: 10px;
     border: none;
     border-radius: 8px;
     box-shadow: 8px 5px 5px rgba(85, 107, 47, 0.53);
 }
 .btn{
     background: rgba(85, 107, 47, 1);
+    width: 150px;
+    height: 45px;
     color: white;
     font: 16px/24px 'Poiret One', cursive;
     letter-spacing: 2px;
@@ -40,6 +47,9 @@ body{
     cursor: pointer;
     transition: 500ms;
 }
+.edit_btn{
+    font-size: 10px;
+}
 .btn:hover{
     box-shadow: 8px 5px 5px rgba(85, 107, 47, 0.53);
 }
@@ -49,14 +59,16 @@ body{
 .list{
     margin: 0;
     padding: 0;
-    width: 70%;
+    width: 100%;
+    list-style: none;
 }
 .item{
+    width: 100%;
     padding: 5px;
-    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid black;
 }
 .selected_item{
     background: rgba(0, 100, 0, 0.5);
@@ -76,4 +88,7 @@ body{
     position: absolute;
     top: 40px;
     right: 200px;
+}
+.open{
+    display: block;
 }
