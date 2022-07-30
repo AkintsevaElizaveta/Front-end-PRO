@@ -1,59 +1,157 @@
 'use strict'
 
+const END_POINT = 'https://62e3d1843c89b95396d11a75.mockapi.io/users/'
 const DELETE_BTN_CLASS = 'delete_btn';
 const USERS_ITEM_SELECTOR = '.item';
-const USERS_ITEM_CLASS = 'item';
+const EDIT_BTN_CLASS = 'edit_btn';
 const SELECTED_ITEM_CLASS = 'selected_item';
-const SHOW_POP_UP_STYLE = 'flex';
-const CLOSE_POP_UP_STYLE = 'none';
+const SHOW_POP_UP_CLASS = 'open';
 
-const usersText = document.querySelector('#usersText');
+const todoForm = document.querySelector('#todoForm')
+const usersFirstName = document.querySelector('#usersFirstName');
+const usersLastName = document.querySelector('#usersLastName');
+const usersCountry = document.querySelector('#usersCountry');
 const usersList = document.querySelector('#usersList');
-const itemTemplate = document.querySelector('#itemTemplate').innerHTML;
-const addBtn = document.querySelector('#addItemBtn');
 const popUp = document.querySelector('#popUp');
 const popUpBtn = document.querySelector('#popUpBtn');
 
-addBtn.addEventListener('click', onAddBtnClick)
+todoForm.addEventListener('submit', onTodoFormSubmit)
 usersList.addEventListener('click', onUsersListClick)
 popUpBtn.addEventListener('click', onPopUpBtnClick)
 
-function onAddBtnClick(){
-    if (!validateEmpty(usersText.value)){
-        popUp.style.display = SHOW_POP_UP_STYLE;
+getTodoList().then(renderTodoList);
+
+
+function onTodoFormSubmit(e){
+    e.preventDefault();
+    const todo = getTodo();
+
+    if (todo === undefined){
         return;
     }
 
-    addItemTemplate(usersText.value);
-    clearField(usersText);
+    createTodo(todo)
+        .then(newTodo => {
+                renderTodoItem(newTodo);
+                clearField();
+        });
+}
+
+function getTodo() {
+    if(!validateEmpty(usersFirstName) || !validateEmpty(usersLastName) || !validateEmpty(usersCountry)){
+        popUp.classList.add(SHOW_POP_UP_CLASS);
+        return;
+    }
+        return {
+            firstName: usersFirstName.value,
+            lastName: usersLastName.value,
+            country: usersCountry.value,
+        };
+}
+
+function getTodoList() {
+    return fetch(END_POINT).then(res => res.json());
+}
+
+function createTodo(todo) {
+    return fetch(END_POINT, {
+        method: 'POST',
+        body: JSON.stringify(todo),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error("Can't create new element");
+        });
 }
 
 function onUsersListClick(e) {
-    const classList = e.target.classList;
+    const todoItem = getTodoItem(e.target);
+    console.log(todoItem)
 
-    if (classList.contains(DELETE_BTN_CLASS)) {
-        e.target.closest(USERS_ITEM_SELECTOR).remove()
+    if (todoItem) {
+        if (e.target.classList.contains(EDIT_BTN_CLASS)) {
+            e.target.closest(USERS_ITEM_SELECTOR).classList.toggle(SELECTED_ITEM_CLASS)
+            getTodoList().then(todos => changeStatus(todos, todoItem.dataset.id))
+
+            return;
+        }
+        if (e.target.classList.contains(DELETE_BTN_CLASS)) {
+            e.target.closest(USERS_ITEM_SELECTOR).remove();
+            deleteTodoItem(todoItem.dataset.id)
+        }
     }
-    if (classList.contains(USERS_ITEM_CLASS)) {
-        e.target.classList.toggle(SELECTED_ITEM_CLASS)
-    }
+}
+
+function getTodoItem(el) {
+    return el.closest(USERS_ITEM_SELECTOR);
+}
+
+function changeStatus(todos, id) {
+    const todo = todos.find(item => item.id === id);
+    todo.status = !todo.status;
+
+    fetch(`https://62e3d1843c89b95396d11a75.mockapi.io/users/${id}`,{
+        method: 'PUT',
+        body: JSON.stringify(todo),
+        headers: {
+            'Content-type': 'application/json',
+        },
+    })
+        .then(res => res.json());
+}
+
+function deleteTodoItem(id){
+    fetch(`https://62e3d1843c89b95396d11a75.mockapi.io/users/${id}`,{
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json',
+        },
+    })
+        .then(res => res.json());
+}
+
+function renderTodoList(list) {
+    const html = list.map(generateTodoHtml).join('');
+    usersList.insertAdjacentHTML('beforeend', html);
+}
+
+function renderTodoItem(todo){
+    const todoItemTemplateHTML = generateTodoHtml(todo);
+    usersList.insertAdjacentHTML('beforeend', todoItemTemplateHTML);
+}
+
+function generateTodoHtml(todo){
+    const status = todo.status ? SELECTED_ITEM_CLASS : '';
+    return `
+        <li class="item ${status}" data-id="${todo.id}" >
+            <div>
+                <strong>${todo.firstName}</strong>
+                <strong>${todo.lastName}, </strong>
+                <span>${todo.country}</span>
+            </div>
+            <div>
+                <button class="btn edit_btn" id="editBtn">ЗМІНИТИ СТАТУС</button>
+                <button class="btn delete_btn" id="deleteBtn">ВИДАЛИТИ</button>
+            </div>
+        </li>
+    `;
 }
 
 function onPopUpBtnClick(){
-    popUp.style.display = CLOSE_POP_UP_STYLE;
+    popUp.classList.remove(SHOW_POP_UP_CLASS);
 }
 
-function validateEmpty(enter){
-    let enterText = enter.trim();
-    return enterText !== '';
+function validateEmpty(enterField){
+    let enter = enterField.value.trim();
+    return enter !== '';
 }
 
-function addItemTemplate(text){
-    const itemTemplateHTML = itemTemplate.replace('{message}', text)
-    usersList.insertAdjacentHTML('beforeend', itemTemplateHTML)
-}
-
-function clearField(field){
-    field.value = '';
+function clearField(){
+    todoForm.reset();
 }
 
