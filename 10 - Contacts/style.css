@@ -50,9 +50,9 @@ body{
 .contacts_list tr{
     padding: 5px;
     display: flex;
+    align-items: center;
     justify-content: space-around;
     border-bottom: 1px solid black;
-
 }
 .contacts_list th{
     font-weight: bold;
@@ -60,9 +60,16 @@ body{
 .contacts_list td, th{
     width: 25%;
     text-align: center;
+    display: flex;
+    align-items: center;
+}
+.contacts_list td, th:last-child{
+    display: flex;
+    flex-direction: column;
 }
 .delete_btn{
     display: inline-block;
+    margin-top: 2px;
 }
 .delete_btn:hover{
     background: red;
