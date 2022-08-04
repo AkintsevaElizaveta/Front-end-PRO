@@ -1,82 +1,93 @@
 'use strict'
 
-let contactList = document.querySelector('#contactsList')
-const addBtn = document.querySelector('#addBtn')
+const CONTACT_ITEM_SELECTOR = '.contact_item';
+const DELETE_BTN_CLASS = 'delete_btn';
 
-addBtn.addEventListener('click', onAddBtnClick)
+const contactList = document.querySelector('#contactsList')
+const addingForm = document.querySelector('#addingForm')
+const firstName = document.querySelector('#name');
+const lastName = document.querySelector('#lastName');
+const phone = document.querySelector('#phone');
+
+addingForm.addEventListener('submit', onAddingFormSubmit)
 contactList.addEventListener('click', onContactListClick)
 
-function onAddBtnClick(){
-    let userName = document.querySelector('#userName').value;
-    let userLastName = document.querySelector('#userLastName').value;
-    let userTel = document.querySelector('#userTel').value;
+Contacts.getList().then(renderContactList);
 
-    if (!validateAllFields(userName, userLastName, userTel)){
+function onAddingFormSubmit(e){
+    e.preventDefault();
+    const contact = getContact();
+
+    if (contact === undefined){
         return;
     }
 
-    addItemTemplate(userName, userLastName, userTel)
-    clearAllFields()
+    Contacts.create(contact)
+        .then(newContact => {
+            renderContactItem(newContact);
+            clearForm(addingForm);
+        })
+        .catch(showError);
 }
 
 function onContactListClick(e) {
-    const classList = e.target.classList;
+    const contactItem = getContactItem(e.target);
 
-    if (classList.contains('delete_btn')) {
-        e.target.closest('.contact_item').remove()
+    if (contactItem) {
+        if (e.target.classList.contains(DELETE_BTN_CLASS)) {
+            e.target.closest(CONTACT_ITEM_SELECTOR).remove();
+            Contacts.delete(contactItem.dataset.id);
+        }
     }
+}
+
+function getContact() {
+    if(!validateEmpty(firstName) || !validateEmpty(lastName) || !validateEmpty(phone)){
+        alert("Всі поля обов'язкові для заповнення!")
+        return;
+    }
+    return {
+        name: firstName.value,
+        lastName: lastName.value,
+        telephone: phone.value,
+    };
+}
+
+function getContactItem(el) {
+    return el.closest(CONTACT_ITEM_SELECTOR);
+}
+
+function renderContactList(list) {
+    const html = list.map(generateHtml).join('');
+    contactList.insertAdjacentHTML('beforeend', html);
+}
+
+function renderContactItem(list){
+    const contactItemTemplateHTML = generateHtml(list);
+    contactList.insertAdjacentHTML('beforeend', contactItemTemplateHTML);
+}
+
+function generateHtml(contact){
+    return `
+        <tr class="contact_item" data-id="${contact.id}">
+            <td>${contact.name}</td>
+            <td>${contact.lastName}</td>
+            <td>${contact.telephone}</td>
+            <td>
+                <button class="contacts_form_btn delete_btn" id="deleteBtn">Видалити</button></td>
+        </tr>
+    `;
 }
 
 function validateEmpty(enter){
-    let enterText = enter.trim();
-    return enterText !== '';
+    let enterValue = enter.value.trim();
+    return enterValue !== '';
 }
 
-function validatePhoneNumber(userTel){
-    return userTel.length === 13 && userTel.startsWith('+380') && !isNaN(userTel);
+function clearForm(form){
+    form.reset();
 }
 
-function validateOnlyLetters(enter) {
-    let letters = /^[A-Za-z]+$/;
-    return enter.match(letters);
-
+function showError(e) {
+    alert(e.message);
 }
-
-function validateAllFields(firstName, lastName, phoneNumber){
-    if(!validateEmpty(firstName) || !validateEmpty(lastName) || !validateEmpty(phoneNumber)){
-        alert('Поле не може бути порожнім')
-        return false;
-    }
-
-    if(!validateOnlyLetters(firstName) || !validateOnlyLetters(lastName)){
-        alert("Ім'я та прізвіще можуть містити тількі літери");
-        return false;
-    }
-
-    if (!validatePhoneNumber(phoneNumber)){
-        alert('Введіть коректний номер телефону')
-        return false;
-    }
-    return true;
-}
-
-function addItemTemplate(firstName, lastName, phoneNumber){
-    let listTemplates = document.querySelector('#listTemplates').innerHTML;
-
-    const listTemplateHTML = listTemplates
-        .replace('{userName}', firstName)
-        .replace('{userLastName}', lastName)
-        .replace('{userTel}', phoneNumber);
-    contactList.insertAdjacentHTML('beforeend', listTemplateHTML)
-}
-
-function clearField(field, defaultValue = ''){
-    field.value = defaultValue;
-}
-
-function clearAllFields(){
-    clearField(document.querySelector('#userName'));
-    clearField(document.querySelector('#userLastName'));
-    clearField(document.querySelector('#userTel'), '+380');
-}
-
