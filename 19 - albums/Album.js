@@ -14,7 +14,7 @@ class Album {
                 throw new Error(`${e.message}`);
             });
     }
-    static getImgByID(id) {
+    static getImgByAlbumID(id) {
         return Album
             .request(id)
             .then(res => {

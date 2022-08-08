@@ -8,8 +8,7 @@ const albumsList = document.querySelector(ALBUMS_LIST_SELECTOR);
 const imagesContainer = document.querySelector(IMAGES_CONTAINER_SELECTOR);
 
 albumsList.addEventListener('click', onAlbumsListClick);
-
-Albums.getList().then(renderAlbumsList).then(loadAlbums);
+Albums.getList().then(renderAlbumsList).then(loadFirstAlbum);
 
 function onAlbumsListClick(e){
     e.preventDefault();
@@ -20,7 +19,7 @@ function onAlbumsListClick(e){
     if(item){
         imagesContainer.innerHTML = '';
         imagesContainer.innerHTML = generateLoadingIndicator()
-        Album.getImgByID(albumId).then(renderImgList);
+        loadImagesByAlbumId(albumId);
     }
 }
 
@@ -39,8 +38,13 @@ function getListItem(el) {
     return el.closest(ALBUMS_ITEM_SELECTOR);
 }
 
-function loadAlbums() {
-    Album.getImgByID(document.querySelector(ALBUMS_ITEM_SELECTOR).dataset.id).then(renderImgList);
+function loadFirstAlbum(){
+    let firstId = document.querySelector(ALBUMS_ITEM_SELECTOR).dataset.id;
+    loadImagesByAlbumId(firstId);
+}
+
+function loadImagesByAlbumId(id) {
+    Album.getImgByAlbumID(id).then(renderImgList);
 }
 
 function generateLoadingIndicator(){
