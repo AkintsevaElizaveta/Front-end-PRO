@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 14px/24px "Source Sans Pro", sans-serif;
+  background: rgba(182, 201, 234, 0.73);
+}
+
+.wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+}
+
+.stickers_container {
+  width: 100%;
+  display: grid;
+  border-top: 2px solid black;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.sticker {
+  width: 250px;
+  min-height: 140px;
+  margin: 20px;
+  padding: 10px;
+  background: linear-gradient(45deg, rgb(236, 215, 104), #eeee92);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 500ms;
+}
+.sticker:hover {
+  transform: scale(1.1);
+}
+.sticker__delete_btn {
+  margin-bottom: 4px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 500ms;
+  align-self: flex-end;
+}
+.sticker__delete_btn:hover {
+  transform: scale(1.2);
+}
+.sticker__delete_btn_icon:hover {
+  fill: white;
+  background: red;
+  border-radius: 50%;
+}
+.sticker__description {
+  width: 100%;
+  background: none;
+  min-height: 80px;
+  font: 18px/24px "Source Sans Pro", sans-serif;
+  border: none;
+  transition: 500ms;
+}
+.sticker__description:focus {
+  background: white;
+  outline-style: none;
+}
+
+#createNewSticker {
+  color: black;
+  position: relative;
+  width: 250px;
+  border: none;
+  margin: 20px;
+  border-radius: 4px;
+  background: rgb(182, 201, 234);
+  padding: 10px 5px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 2px 0 rgba(255, 255, 255, 0.5), 7px 7px 20px 0 rgba(0, 0, 0, 0.1), 4px 4px 5px 0 rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+#createNewSticker:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  box-shadow: -7px -7px 20px 0 #eeee8f, -4px -4px 5px 0 rgba(255, 255, 255, 0.6), 7px 7px 20px 0 rgba(0, 0, 0, 0.1333333333), 4px 4px 5px 0 rgba(0, 0, 0, 0.0666666667);
+  transition: all 0.3s ease;
+}
+#createNewSticker:hover {
+  color: #000;
+}
+#createNewSticker:hover:after {
+  left: auto;
+  right: 0;
+  width: 100%;
+}
+#createNewSticker:active {
+  top: 2px;
+}
+
+/*# sourceMappingURL=style.css.map */
