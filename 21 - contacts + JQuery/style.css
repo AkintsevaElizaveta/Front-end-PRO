@@ -1,0 +1,115 @@
+body{
+    margin: 0;
+    font: 20px/24px 'Montserrat', sans-serif;
+}
+.wrapper{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contacts_form{
+    position: fixed;
+    width: 100%;
+    background: rgb(193, 212, 232);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px;
+}
+.contacts_form_btn{
+    background: rgb(9, 120, 237);
+    width: 130px;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    font: 18px/22px 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: 500ms;
+}
+.adding_btn{
+    width: 250px;
+    padding: 10px;
+    margin-right: 50px;
+}
+.contacts_form_btn:hover{
+    box-shadow: 5px 5px 5px rgba(21, 63, 107, 0.5);
+    background: rgb(19, 94, 21);
+}
+.contacts_list{
+    width: 100vw;
+    margin-top: 90px;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.contact_item{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 5px;
+}
+.contact_item strong, span{
+    text-align: center;
+    width: 25%;
+}
+.delete_btn{
+    display: inline-block;
+    margin-top: 2px;
+}
+.delete_btn:hover{
+    background: red;
+}
+#contactModal{
+    padding: 10px 0;
+}
+#contactForm{
+    background: rgb(193, 212, 232);
+    display: flex;
+    flex-direction: column;
+}
+#contactForm fieldset{
+    padding: 5px;
+}
+#contactForm div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.ui-dialog{
+    background: lightgrey;
+    width: 450px;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+#ui-id-1{
+    display: none;
+}
+.ui-button{
+    font: 14px/18px 'Montserrat', sans-serif;
+    background: rgb(109, 171, 238);
+    padding: 4px;
+    border: none;
+    width: 100px;
+    margin: 4px;
+    transition: 500ms;
+}
+.ui-button:hover{
+    background: rgb(19, 94, 21);
+    color: white;
+}
+.ui-button:hover:last-child{
+    background: red;
+}
+.ui-dialog-titlebar-close{
+    display: none;
+}

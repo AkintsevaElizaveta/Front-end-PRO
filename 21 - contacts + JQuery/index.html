@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script defer src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script defer src="Contacts.js"></script>
+    <script defer src="main.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <form class="contacts_form" id="addingForm" onsubmit="return false">
+        <button class="contacts_form_btn adding_btn" id="addBtn" type="submit">Додати контакт</button>
+    </form>
+    <ul class="contacts_list" id="contactsList" data-id="34">
+        <li class="contact_item">
+            <strong>Ім'я</strong>
+            <strong>Прізвище</strong>
+            <strong>Номер телефону</strong>
+            <strong>Дії</strong>
+        </li>
+    </ul>
+    <div id="contactModal" title="Contact">
+        <form id="contactForm" onsubmit="return false">
+            <fieldset>
+                <input type="hidden" name="id">
+                <div class="">
+                    <label for="name">Ім'я</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div class="">
+                    <label for="lastName">Прізвище</label>
+                    <input type="text" name="lastName" id="lastName">
+                </div>
+                <div class="">
+                    <label for="telephone">Номер телефону</label>
+                    <input type="tel" name="telephone" id="telephone" placeholder="+380xxxxxxxxx">
+                </div>
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>

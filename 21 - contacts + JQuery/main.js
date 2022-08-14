@@ -1,0 +1,182 @@
+'use strict'
+
+const CONTACT_LIST_SELECTOR = ('#contactsList');
+const CONTACT_ITEM_SELECTOR = ('.contact_item');
+const ADD_CONTACT_SELECTOR = ('#addBtn');
+const EDIT_BTN_SELECTOR = ('.edit_btn');
+const DELETE_BTN_SELECTOR = ('.delete_btn');
+const MODAL_SELECTOR = ('#contactModal');
+const CONTACT_FORM_SELECTOR = ('#contactForm');
+
+let contactListArr = [];
+
+$(ADD_CONTACT_SELECTOR).on('click', onAddContactBtnClick);
+
+const $contactList = $(CONTACT_LIST_SELECTOR)
+    .on('click', DELETE_BTN_SELECTOR, onDeleteClick)
+    .on('click', EDIT_BTN_SELECTOR, onEditClick)
+
+const $form = $(CONTACT_FORM_SELECTOR)[0];
+
+const $modal = $(MODAL_SELECTOR).dialog({
+    autoOpen: false,
+    modal: true,
+    show: {
+        effect: "blind",
+        duration: 500
+    },
+    hide: {
+        effect: "blind",
+        duration: 500
+    },
+    buttons: {
+        Save: () => {
+            const contact = getContact();
+
+            if(!validateEmpty(contact.name) || !validateEmpty(contact.lastName) || !validateEmpty(contact.telephone)){
+                debugger
+                alert("Всі поля обов'язкові для заповнення!")
+                return;
+            }
+            if (contact.id) {
+                updateContact(contact.id, contact);
+            } else {
+                createContact(contact);
+            }
+
+            closeModal();
+        },
+        Close: closeModal
+    },
+})
+
+function openModal(contact) {
+    fillForm(contact);
+    $modal.dialog('open');
+
+}
+
+function closeModal() {
+    $modal.dialog('close');
+}
+
+function fillForm(contact){
+    $form.name.value = contact.name;
+    $form.lastName.value = contact.lastName;
+    $form.telephone.value = contact.telephone;
+    $form.id.value = contact.id;
+}
+
+function getContact(){
+    return {
+        ...Contacts.EMPTY_CONTACT,
+        id: $form.id.value,
+        name: $form.name.value,
+        lastName: $form.lastName.value,
+        telephone: $form.telephone.value,
+    };
+}
+
+Contacts.getList()
+    .then((list) => {
+        contactListArr = list;
+
+        renderContactList(list);
+    })
+
+function onAddContactBtnClick(e) {
+    e.preventDefault();
+    openModal(Contacts.EMPTY_CONTACT);
+}
+
+function onDeleteClick(e) {
+    const id = getElementId($(e.target));
+
+    deleteContact(id);
+}
+
+function onEditClick() {
+
+    const $id = getElementId($(this));
+    const contact = contactListArr.find(item => item.id === $id);
+
+    openModal(contact);
+}
+
+function renderContactList(list) {
+    const html = list.map(generateHtml).join('');
+    $contactList.append(html);
+}
+
+function renderContactItem(list){
+    const contactItemTemplateHTML = generateHtml(list);
+    $contactList.append(contactItemTemplateHTML);
+}
+
+function generateContactEl(contact) {
+    return $(generateHtml(contact));
+}
+
+function generateHtml(contact){
+    return `
+        <li class="contact_item" data-id="${contact.id}">
+            <span>${contact.name}</span>
+            <span>${contact.lastName}</span>
+            <span>${contact.telephone}</span>
+            <span>
+                <button class="contacts_form_btn edit_btn">Редагувати</button>
+                <button class="contacts_form_btn delete_btn">Видалити</button>
+            </span>
+        </li>
+    `;
+}
+
+function getElementId($el) {
+    const $contact = getStickerEl($el);
+
+    return String($contact.data('id'));
+}
+
+function getStickerEl($el) {
+    return $el.closest(CONTACT_ITEM_SELECTOR);
+}
+
+function findContactElById(id) {
+    return $contactList.find(`[data-id="${id}"]`);
+}
+
+function createContact(contact) {
+    Contacts
+        .create(contact)
+        .then((newContact) => {
+            renderContactItem(newContact);
+            contactListArr.push(newContact);
+        })
+}
+
+function deleteContact(id) {
+
+    Contacts.delete(id)
+        .then(() => {
+            const $contact = findContactElById(id);
+            contactListArr = $contactList.filter(item => item.id !== id);
+
+            $contact.remove();
+        })
+}
+
+function updateContact(id, changes) {
+    Contacts.update(id, changes)
+        .then(() => {
+            const contact = contactListArr.find(item => item.id === id);
+            const $contact = findContactElById(id);
+
+            Object.keys(changes).forEach(key => contact[key] = changes[key]);
+            $contact.replaceWith(generateContactEl(contact));
+        })
+}
+
+function validateEmpty(enter){
+    let enterValue = enter.trim();
+    return enterValue !== '';
+}
