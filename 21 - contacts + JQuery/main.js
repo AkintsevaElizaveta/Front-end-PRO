@@ -34,10 +34,10 @@ const $modal = $(MODAL_SELECTOR).dialog({
             const contact = getContact();
 
             if(!validateEmpty(contact.name) || !validateEmpty(contact.lastName) || !validateEmpty(contact.telephone)){
-                debugger
                 alert("Всі поля обов'язкові для заповнення!")
                 return;
             }
+            
             if (contact.id) {
                 updateContact(contact.id, contact);
             } else {
