@@ -75,14 +75,14 @@ function onEditClick() {
     openModal(contact);
 }
 
-function renderContactItem(list){
-    const contactItemTemplateHTML = generateHtml(list);
-    $contactList.append(contactItemTemplateHTML);
-}
-
 function renderContactList(list) {
     const html = list.map(generateHtml).join('');
     $contactList.append(html);
+}
+
+function renderContactItem(list){
+    const contactItemTemplateHTML = generateHtml(list);
+    $contactList.append(contactItemTemplateHTML);
 }
 
 function getContact(){
