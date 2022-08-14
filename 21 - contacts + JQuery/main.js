@@ -50,33 +50,6 @@ const $modal = $(MODAL_SELECTOR).dialog({
     },
 })
 
-function openModal(contact) {
-    fillForm(contact);
-    $modal.dialog('open');
-
-}
-
-function closeModal() {
-    $modal.dialog('close');
-}
-
-function fillForm(contact){
-    $form.name.value = contact.name;
-    $form.lastName.value = contact.lastName;
-    $form.telephone.value = contact.telephone;
-    $form.id.value = contact.id;
-}
-
-function getContact(){
-    return {
-        ...Contacts.EMPTY_CONTACT,
-        id: $form.id.value,
-        name: $form.name.value,
-        lastName: $form.lastName.value,
-        telephone: $form.telephone.value,
-    };
-}
-
 Contacts.getList()
     .then((list) => {
         contactListArr = list;
@@ -96,16 +69,10 @@ function onDeleteClick(e) {
 }
 
 function onEditClick() {
-
     const $id = getElementId($(this));
     const contact = contactListArr.find(item => item.id === $id);
 
     openModal(contact);
-}
-
-function renderContactList(list) {
-    const html = list.map(generateHtml).join('');
-    $contactList.append(html);
 }
 
 function renderContactItem(list){
@@ -113,8 +80,19 @@ function renderContactItem(list){
     $contactList.append(contactItemTemplateHTML);
 }
 
-function generateContactEl(contact) {
-    return $(generateHtml(contact));
+function renderContactList(list) {
+    const html = list.map(generateHtml).join('');
+    $contactList.append(html);
+}
+
+function getContact(){
+    return {
+        ...Contacts.EMPTY_CONTACT,
+        id: $form.id.value,
+        name: $form.name.value,
+        lastName: $form.lastName.value,
+        telephone: $form.telephone.value,
+    };
 }
 
 function generateHtml(contact){
@@ -131,18 +109,38 @@ function generateHtml(contact){
     `;
 }
 
+function openModal(contact) {
+    fillForm(contact);
+    $modal.dialog('open');
+}
+
+function closeModal() {
+    $modal.dialog('close');
+}
+
+function fillForm(contact){
+    $form.name.value = contact.name;
+    $form.lastName.value = contact.lastName;
+    $form.telephone.value = contact.telephone;
+    $form.id.value = contact.id;
+}
+
 function getElementId($el) {
-    const $contact = getStickerEl($el);
+    const $contact = getContactEl($el);
 
     return String($contact.data('id'));
 }
 
-function getStickerEl($el) {
+function getContactEl($el) {
     return $el.closest(CONTACT_ITEM_SELECTOR);
 }
 
 function findContactElById(id) {
     return $contactList.find(`[data-id="${id}"]`);
+}
+
+function generateContactEl(contact) {
+    return $(generateHtml(contact));
 }
 
 function createContact(contact) {
@@ -154,17 +152,6 @@ function createContact(contact) {
         })
 }
 
-function deleteContact(id) {
-
-    Contacts.delete(id)
-        .then(() => {
-            const $contact = findContactElById(id);
-            contactListArr = $contactList.filter(item => item.id !== id);
-
-            $contact.remove();
-        })
-}
-
 function updateContact(id, changes) {
     Contacts.update(id, changes)
         .then(() => {
@@ -173,6 +160,16 @@ function updateContact(id, changes) {
 
             Object.keys(changes).forEach(key => contact[key] = changes[key]);
             $contact.replaceWith(generateContactEl(contact));
+        })
+}
+
+function deleteContact(id) {
+    Contacts.delete(id)
+        .then(() => {
+            const $contact = findContactElById(id);
+            contactListArr = $contactList.filter(item => item.id !== id);
+
+            $contact.remove();
         })
 }
 
