@@ -33,8 +33,7 @@ const $modal = $(MODAL_SELECTOR).dialog({
         Save: () => {
             const contact = getContact();
 
-            if(!validateEmpty(contact.name) || !validateEmpty(contact.lastName) || !validateEmpty(contact.telephone)){
-                alert("Всі поля обов'язкові для заповнення!")
+            if(!isContactValid(contact)){
                 return;
             }
             
@@ -76,13 +75,15 @@ function onEditClick() {
 }
 
 function renderContactList(list) {
-    const html = list.map(generateHtml).join('');
-    $contactList.append(html);
+    const $list = list.map(generateHtml);
+
+    $contactList.append($list);
 }
 
-function renderContactItem(list){
-    const contactItemTemplateHTML = generateHtml(list);
-    $contactList.append(contactItemTemplateHTML);
+function renderContactItem(item){
+    const $item = generateContactEl(item);
+
+    $contactList.append($item);
 }
 
 function getContact(){
@@ -176,4 +177,13 @@ function deleteContact(id) {
 function validateEmpty(enter){
     let enterValue = enter.trim();
     return enterValue !== '';
+}
+
+function isContactValid(contact){
+    if(!validateEmpty(contact.name) || !validateEmpty(contact.lastName) || !validateEmpty(contact.telephone)){
+        alert("Всі поля обов'язкові для заповнення!")
+        return false;
+    }
+
+    return true;
 }
