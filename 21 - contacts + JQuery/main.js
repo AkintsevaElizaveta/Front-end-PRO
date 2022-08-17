@@ -34,6 +34,7 @@ const $modal = $(MODAL_SELECTOR).dialog({
             const contact = getContact();
 
             if(!isContactValid(contact)){
+                alert("Всі поля обов'язкові для заповнення!")
                 return;
             }
             
@@ -180,10 +181,5 @@ function validateEmpty(enter){
 }
 
 function isContactValid(contact){
-    if(!validateEmpty(contact.name) || !validateEmpty(contact.lastName) || !validateEmpty(contact.telephone)){
-        alert("Всі поля обов'язкові для заповнення!")
-        return false;
-    }
-
-    return true;
+    return (validateEmpty(contact.name) || validateEmpty(contact.lastName) || validateEmpty(contact.telephone))
 }
