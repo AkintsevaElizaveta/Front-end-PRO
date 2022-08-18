@@ -1,5 +1,5 @@
 class TodoApi{
-    static ROOT_URI = 'https://62e3d1843c89b95396d11a75.mockapi.io/users/';
+    static ROOT_URI = 'https://62e3d1843c89b95396d11a75.mockapi.io/todo/';
 
     static getList() {
         return fetch(this.ROOT_URI).then(res => {

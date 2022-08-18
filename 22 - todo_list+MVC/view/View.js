@@ -8,12 +8,11 @@ class View {
     #$listEl;
     #options;
 
-
     constructor(options) {
         this.#$listEl = $(View.TODO_LIST_SELECTOR)
             .on('click', View.DELETE_BTN_SELECTOR, (e) => this.onDeleteBtnClick(e))
             .on('click', View.USERS_ITEM_SELECTOR, (e) => this.onChangeStatus(e))
-
+        
         this.#options = options;
     }
 
@@ -28,19 +27,13 @@ class View {
     onChangeStatus(e){
         e.stopPropagation();
 
-        const el = this.getTodoEl(e.target)
         const id = this.getTodoItemId(e.target);
 
         this.#options.onChangeStatus(id);
-        el.classList.toggle(View.SELECTED_ITEM_CLASS)
     }
 
     getTodoItemId(el) {
         return el.closest(View.USERS_ITEM_SELECTOR)?.dataset.id;
-    }
-
-    getTodoEl(el){
-        return el.closest(View.USERS_ITEM_SELECTOR);
     }
 
     appendTo($el) {
@@ -59,9 +52,7 @@ class View {
         return `
         <li class="item ${status}" data-id="${todo.id}" >
             <div>
-                <strong>${todo.firstName}</strong>
-                <strong>${todo.lastName}, </strong>
-                <span>${todo.country}</span>
+                <strong>${todo.title}</strong>
             </div>
             <div>
                 <button class="btn delete_btn" id="deleteBtn">ВИДАЛИТИ</button>

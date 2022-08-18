@@ -17,7 +17,7 @@ class Collection {
     }
 
     update(id, todo) {
-        let index = this.#list.indexOf(todo);
+        let index = this.#list.findIndex(e => e.id === id);
 
         TodoApi.update(id, todo)
             .then(res => this.#list[index] = res);
@@ -35,5 +35,13 @@ class Collection {
         TodoApi.delete(id);
 
         return Promise.resolve();
+    }
+
+    toggleStatus(id){
+        let todo = this.find(id)
+        todo.status = !todo.status
+
+
+        return Promise.resolve(todo);
     }
 }
