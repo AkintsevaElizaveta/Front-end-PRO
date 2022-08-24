@@ -27,10 +27,9 @@ function copyJs() {
 
 function copyVendorJs() {
     return src([
-        './node_modules/jquery/dist/jquery.js',
+        './node_modules/jquery/dist/jquery.min.js',
     ])
         .pipe(concat('vendor.js'))
-        .pipe(uglify())
         .pipe(dest('./dest'))
 }
 
