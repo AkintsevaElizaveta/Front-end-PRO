@@ -4,11 +4,9 @@ class AlbumsController{
     constructor(albumContainer) {
         this.#$rootAlbumContainer = albumContainer;
         this.collection = new AlbumsCollection();
-        this.albumView = new AlbumsView(
+        this.albumView = new AlbumsView();
 
-        );
         this.albumView.appendTo(this.#$rootAlbumContainer);
-
     }
 
     renderList() {

@@ -1,2 +1,2 @@
-let albumsController = new AlbumsController($('#imgContainer'));
+const albumsController = new AlbumsController($('#imgContainer'));
 new LinksController($('#linksList'), albumsController);

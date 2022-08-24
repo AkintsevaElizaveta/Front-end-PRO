@@ -2,11 +2,9 @@ class AlbumsView{
     static IMAGES_CONTAINER_SELECTOR = '#imgContainer';
 
     #$gallery
-    #options;
 
-    constructor(options) {
+    constructor() {
         this.#$gallery = $(AlbumsView.IMAGES_CONTAINER_SELECTOR)
-        this.#options = options;
     }
 
     appendTo($el) {
@@ -19,7 +17,6 @@ class AlbumsView{
         const html = gallery.map(gallery => this.generateImages(gallery)).join('');
 
         this.#$gallery.html(html)
-
     }
 
     generateImages(img){

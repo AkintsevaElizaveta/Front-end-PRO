@@ -20,8 +20,8 @@ class LinksController{
         this.linksView.renderAlbumsList(this.collection.getList());
     }
 
-    loadFirstAlbum(){
-       const firstAlbumId =  this.collection.getFirstId();
-       this.#albumsController.loadAlbumById(firstAlbumId)
+    loadFirstAlbum() {
+        const firstAlbumId = this.collection.getFirstId();
+        this.#albumsController.loadAlbumById(firstAlbumId)
     }
 }
