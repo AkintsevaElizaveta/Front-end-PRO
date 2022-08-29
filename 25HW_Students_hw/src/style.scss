@@ -1,0 +1,13 @@
+body{
+  margin: 0;
+}
+.students_container{
+  &__item{
+    display: flex;
+    margin-bottom: 5px;
+  }
+  &__marks{
+    width: 30px;
+    margin-right: 5px;
+  }
+}
