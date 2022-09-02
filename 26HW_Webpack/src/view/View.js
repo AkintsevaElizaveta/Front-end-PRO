@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import style from '../StudentsList.css'
+import style from '../style.scss'
 
 export default class View {
     static STUDENTS_LIST_SELECTOR = '#studentsList';
