@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="index.js"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <form onsubmit="return false" class="new_message_form">
+            <label for="nameField" class="input_title">Name</label>
+            <input type="text" id="nameField" name="userName" class="new_message_form_input" required>
+            <label for="messageField" class="input_title">Message</label>
+            <input type="text" id="messageField" name="userMessage" class="new_message_form_input" required>
+            <button type="submit" class="send_btn">Send</button>
+        </form>
+        <ul class="chat_container">
+
+        </ul>
+    </div>
+</body>
+</html>
