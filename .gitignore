@@ -80,3 +80,5 @@ fabric.properties
 #archives
 *.zip
 */node_modules
+*/dist/
+*/dest/
