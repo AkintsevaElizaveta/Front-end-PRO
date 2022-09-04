@@ -1,3 +1,5 @@
+import style from './style.scss'
+
 const MESSAGES_LIST_SELECTOR = '.chat_container';
 const NAME_INPUT_SELECTOR = '#nameField';
 const MESSAGE_INPUT_SELECTOR = '#messageField';
@@ -25,33 +27,36 @@ function onSendBtnClick(){
 
 function initConnection() {
     socket = new WebSocket('wss://fep-app.herokuapp.com');
+
+    subscribeSocketEvents();
 }
 
-socket.onopen = () => {
-    socket.send(JSON.stringify({
-        username: 'System',
-        message: 'New user connected',
-    }));
+function subscribeSocketEvents(){
+    socket.onopen = () => {
+        socket.send(JSON.stringify({
+            username: 'System',
+            message: 'New user connected',
+        }));
+    };
 
-};
+    socket.onclose = () => {
+        initConnection();
+    };
 
-socket.onclose = () => {
-    initConnection();
-};
+    socket.onerror = (event) => {
+        alert(`'Error', ${event.data}`);
+    };
 
-socket.onerror = (event) => {
-    console.log('Error', event.data);
-};
+    socket.onmessage = (event) => {
+        try {
+            renderNewMessage(event)
+            clearField(userMessage);
 
-socket.onmessage = (event) => {
-    try {
-        renderNewMessage(event)
-        clearField(userMessage);
-
-    } catch (e) {
-        console.log('Error', event.data);
-    }
-};
+        } catch (e) {
+            alert(`'Error', ${event.data}`);
+        }
+    };
+}
 
 function renderNewMessage(response){
     const res = JSON.parse(response.data);
@@ -62,9 +67,9 @@ function renderNewMessage(response){
 
 function generateHtml(response){
     return`
-    <li class="chat_container_item">
-       <span class="chat_container_name">${response.username}:</span>
-       <span class="chat_container_message">${response.message}</span>
+    <li class="${style.chat_container_item}">
+       <span class="${style.chat_container_name}">${response.username}:</span>
+       <span class="${style.chat_container_message}">${response.message}</span>
     </li>
     `
 }
@@ -77,11 +82,3 @@ function validateEmpty(enter){
 function clearField(field){
     field.value = '';
 }
-
-// let regexp = /love/;
-// let regexp2 = /ing$/;
-//
-// alert( regexp.test('I love JavaScript') ); // true
-// alert( regexp.test('I JavaScript') ); // false
-// alert( regexp2.test('Good morning') ); // true
-// alert( regexp2.test('Good morning!') ); // false
