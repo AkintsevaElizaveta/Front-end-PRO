@@ -48,19 +48,16 @@ function subscribeSocketEvents(){
     };
 
     socket.onmessage = (event) => {
-        try {
-            renderNewMessage(event)
+        const res = JSON.parse(event.data);
+        if(validateResponse(res.username) && validateResponse(res.message)){
+            renderNewMessage(res)
             clearField(userMessage);
-
-        } catch (e) {
-            alert(`'Error', ${event.data}`);
         }
     };
 }
 
 function renderNewMessage(response){
-    const res = JSON.parse(response.data);
-    let item = generateHtml(res);
+    let item = generateHtml(response);
 
     messagesList.insertAdjacentHTML('beforeend', item);
 }
@@ -72,6 +69,10 @@ function generateHtml(response){
        <span class="${style.chat_container_message}">${response.message}</span>
     </li>
     `
+}
+
+function validateResponse(field){
+    return field !== null && field !== undefined;
 }
 
 function validateEmpty(enter){
