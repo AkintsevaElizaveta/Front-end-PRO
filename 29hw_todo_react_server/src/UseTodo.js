@@ -5,7 +5,6 @@ export default function UseTodo(defaultList) {
     const [error, setError] = useState('');
     const [todos, setTodo] = useState(defaultList);
 
-
     function showError(e) {
         setError(e.message);
     }
@@ -23,6 +22,7 @@ export default function UseTodo(defaultList) {
                     const newList = todos.map(todoItem => todoItem.id === newTodo.id ? newTodo : todoItem)
 
                     setTodo(newList);
+
                 })
                 .catch(showError);
         } else {

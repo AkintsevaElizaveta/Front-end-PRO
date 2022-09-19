@@ -20,6 +20,7 @@ export default function Todo({ defaultMessage, defaultList}) {
                 editTodo={editTodo}
                 onSubmit={onTodoFormSubmit}
                 defaultMessage={defaultMessage}
+                clearTodo={() => setEditTodo(undefined)}
             />
             <List
                 todos={todos}

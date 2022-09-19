@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function List({ todos, onEdit, onDelete, onChange }) {
+export default function List({
+     todos,
+     onEdit,
+     onDelete,
+     onChange
+}) {
 
     function onEditClick(e, todo) {
         e.stopPropagation();

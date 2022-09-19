@@ -2,7 +2,6 @@ import React from 'react';
 import Todo from './Todo';
 import './index.css';
 
-
 function App() {
     const INITIAL_TODO_LIST = [
         {"title":"item 1", "status":true, "id":"1"},

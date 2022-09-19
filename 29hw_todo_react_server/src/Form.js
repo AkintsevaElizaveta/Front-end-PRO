@@ -1,6 +1,11 @@
 import React, {useState} from "react";
 
-export default function Form({ editTodo, onSubmit, defaultMessage }) {
+export default function Form({
+     editTodo,
+     onSubmit,
+     defaultMessage,
+     clearTodo
+}) {
     const [message, setMessage] = useState(editTodo?.title ?? defaultMessage);
 
     function onFormSubmit(e) {
@@ -14,6 +19,7 @@ export default function Form({ editTodo, onSubmit, defaultMessage }) {
 
         onSubmit(newTodo);
         setMessage('');
+        clearTodo();
     }
 
     function onMessageChange(e) {
