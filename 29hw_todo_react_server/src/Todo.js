@@ -15,6 +15,7 @@ export default function Todo({ defaultMessage, defaultList}) {
 
     return (
         <>
+            <div>{error}</div>
             <Form
                 key={editTodo?.id}
                 editTodo={editTodo}
