@@ -1,4 +1,4 @@
-import {ACTION_TODO_DELETE, ACTION_TODO_CHANGE_STATUS} from "../actions/todo";
+import {ACTION_TODO_DELETE, ACTION_TODO_CHANGE_STATUS, ACTION_TODO_CREATE} from "../actions/todo";
 
 const INITIAL_STATE = {
     todos: [
@@ -10,6 +10,11 @@ const INITIAL_STATE = {
 
 export default function rootReducer(state = INITIAL_STATE, { type, payload }) {
     switch (type) {
+        case ACTION_TODO_CREATE :
+            return {
+                ...state,
+                todos: [...state.todos, payload]
+            }
         case ACTION_TODO_DELETE:
             return { ...state, todos: state.todos.filter(todo => todo.id !== payload) };
         case ACTION_TODO_CHANGE_STATUS:

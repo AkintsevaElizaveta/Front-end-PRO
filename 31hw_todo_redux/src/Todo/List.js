@@ -19,18 +19,18 @@ export default function List({ todos }) {
     }
 
     return (
-        <ul id="todoList">
+        <ul className={style.list}>
             {todos.map((todo, i) => (
                 <li
                     key={todo.id}
-                    className={`item ${todo.status ? style.done : ""}`}
+                    className={`${style.item} ${todo.status ? style.done : ""}`}
                     onClick={e => onChangeStatus(e, todo)}
                 >
-                    {todo.title}
+                    <span className={style.item_title}>{todo.title}</span>
                     <button
-                        className="remove-button"
+                        className={style.btn}
                         onClick={e => onDeleteClick(e, todo)}
-                    >Delete</button>
+                    >Видалити</button>
                 </li>
             ))}
         </ul>
