@@ -7,15 +7,11 @@ export default function List({ todos }) {
     const dispatch = useDispatch();
 
     function onDeleteClick(e, todo) {
-        e.stopPropagation();
-
         dispatch(deleteItem(todo.id));
     }
 
     function onChangeStatus(e, todo) {
-        e.stopPropagation();
-
-        dispatch(changeStatus(todo.id))
+       dispatch(changeStatus(todo.id))
     }
 
     return (
