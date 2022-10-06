@@ -1,0 +1,16 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.field_box{
+    margin-bottom: 5px;
+}
+.title{
+    display: inline-block;
+    width: 150px;
+}
+.error{
+    color: darkred;
+}
